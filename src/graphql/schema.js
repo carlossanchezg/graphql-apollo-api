@@ -8,7 +8,6 @@ export default gql`
     getUsers: [User]
     getUserById(_id: ID!): User
     getUserByEmail(email: String!): User
-
   }
 
   type Mutation {
@@ -23,6 +22,8 @@ export default gql`
     deleteUserList(_id: ID!, listId: ID!): User
     addMovieInUserList(_id: ID!, listId: ID!, movie: ID!): User
     deleteMovieToUserList(_id: ID!, listId: ID!, movie: ID!): User
+    signup(body: UserInput!): AuthRes
+    login(body: UserInput!): AuthRes
   }
 
   type Movie {
@@ -55,6 +56,11 @@ export default gql`
     _id: ID
     name_list: String!
     list_content: [Movie]
+  }
+
+  type AuthRes {
+    user: User
+    token: String!
   }
 
   input MovieInput {

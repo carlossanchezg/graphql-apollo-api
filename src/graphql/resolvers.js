@@ -1,6 +1,7 @@
 /* eslint-disable no-return-await */
 import movieActions from './actions/movieActions';
 import userActions from './actions/userActions';
+import authActions from './actions/authActions';
 
 export default {
   Query: {
@@ -47,6 +48,14 @@ export default {
       const foundList = await userActions.findListById(user, listId);
       const deletedMovie = await userActions.deleteMovieToList(user, foundList, movie);
       return deletedMovie;
+    },
+    signup: async (_, { body }) => {
+      const ok = await authActions.register(body);
+      return ok;
+    },
+    login: async (_, { body }) => {
+      const ok = await authActions.login(body);
+      return ok;
     },
   },
 };

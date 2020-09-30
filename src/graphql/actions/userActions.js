@@ -16,7 +16,7 @@ export default {
       path: 'list_content',
     },
   }),
-  getUserByEmail: (email) => User.findOne({ email }).select('-password').populate({
+  getUserByEmail: (email) => User.findOne({ email }).populate({
     path: 'user_list',
     populate: {
       path: 'list_content',
@@ -66,4 +66,6 @@ export default {
     listId.list_content = removeMovie;
     return user.save();
   },
+  // findUserAndListById: (userId, listId) => {
+  // }
 };
