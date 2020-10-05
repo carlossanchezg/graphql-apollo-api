@@ -23,10 +23,14 @@ export default {
     },
   }),
   createUser: async (body) => {
-    const newUser = new User(body);
-    await newUser.save();
-    newUser.password = undefined;
-    return newUser;
+    try {
+      const newUser = new User(body);
+      await newUser.save();
+      newUser.password = undefined;
+      return newUser;
+    } catch (error) {
+      return error;
+    }
   },
   updateUser: (_id, body) => User.findByIdAndUpdate(_id, body, { new: true }).select('-password').populate({
     path: 'user_list',
@@ -66,6 +70,18 @@ export default {
     listId.list_content = removeMovie;
     return user.save();
   },
-  // findUserAndListById: (userId, listId) => {
-  // }
+  findUserAndListById: async (userId, listId) => {
+    try {
+      const user = await User.findById(userId).select('-password').populate({
+        path: 'user_list',
+        populate: {
+          path: 'list_content',
+        },
+      });
+      const list = await user.user_list.id(listId);
+      return [user, list];
+    } catch (error) {
+      return error;
+    }
+  },
 };

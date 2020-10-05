@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-// eslint-disable-next-line no-unused-vars
 import colors from 'colors';
+import dotenv from 'dotenv/config';
 import DBConnection from './database';
 
 // Construct a schema, using GraphQL schema language
@@ -10,14 +11,12 @@ import typeDefs from './graphql/schema';
 // Provide resolver functions for your schema fields
 import resolvers from './graphql/resolvers';
 
-require('dotenv').config();
-
 const server = new ApolloServer({ typeDefs, resolvers });
 
 const app = express();
 server.applyMiddleware({ app });
 
-const PORT = 4200;
+const PORT = 4000;
 
 DBConnection();
 

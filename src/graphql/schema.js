@@ -4,20 +4,20 @@ export default gql`
   type Query {
     getMovies: [Movie]
     getMovieById(_id: ID!): Movie
-    getMovieByTitle(title: String!): Movie
+    getMovieByTitle(title: String!, token: String): Movie
     getUsers: [User]
     getUserById(_id: ID!): User
     getUserByEmail(email: String!): User
   }
 
   type Mutation {
-    addNewMovie(body: MovieInput!): Movie
+    addNewMovie(body: MovieInput!, token: String): Movie
     updateMovie(_id: ID!, body: MovieInput!): Movie
     deleteMovie(_id: ID!): Movie
     createUser(body: UserInput!): User
     updateUser(_id: ID!, body: UserInput!): User
     deleteUser(_id: ID!): User
-    createAndListInUser(_id: ID!, body: UserListInput!): User
+    createAndAddListInUser(_id: ID!, body: UserListInput!): User
     updateUserList(userId: ID!, listId: ID!, body: UserListInput!): User
     deleteUserList(_id: ID!, listId: ID!): User
     addMovieInUserList(_id: ID!, listId: ID!, movie: ID!): User
